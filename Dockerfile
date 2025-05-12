@@ -5,13 +5,13 @@ FROM node:18
 WORKDIR /app
 
 # Copy only necessary files
-COPY ./src/package.json ./src/package-lock.json ./
+COPY ./src/package.json ./
 
 # Install dependencies
 RUN npm install
 
 # Copy app code
-COPY ./src/app ./app
+COPY ./src/app.js ./app.js
 
 # Run your app
 CMD ["node", "index.js"]
