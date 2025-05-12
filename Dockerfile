@@ -11,7 +11,7 @@ COPY ./src/package.json ./
 RUN npm install
 
 # Copy app code
-COPY ./src/app.js ./app.js
+COPY ./src/app.js ./index.js
 
 # Run your app
 CMD ["node", "index.js"]
