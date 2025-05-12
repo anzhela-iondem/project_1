@@ -9,7 +9,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  ECR_REPOSITORY: 123456789012.dkr.ecr.us-east-1.amazonaws.com/app
+  ECR_REPOSITORY: 216282580084.dkr.ecr.us-east-1.amazonaws.com/nodejs_image_fake_project 
 
 jobs:
   build-and-push:
