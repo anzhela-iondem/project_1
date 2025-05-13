@@ -1,0 +1,69 @@
+name: Continuous Deployment - EKS Ingress + ArgoCD
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/cd.yaml'
+      - 'kube-gitops/**'
+    #  - 'charts/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    env:
+      CLUSTER_NAME: ${{ secrets.EKS_CLUSTER_NAME }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Configure AWS credentials (OIDC)
+      uses: aws-actions/configure-aws-credentials@v3
+      with:
+        role-to-assume: ${{ secrets.AWS_OIDC_ROLE_ARN }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Get Kubeconfig from EKS
+      run: |
+        aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME
+
+    - name: Install Helm
+      uses: azure/setup-helm@v3
+
+    # Install NGINX Ingress Controller
+    - name: Install NGINX Ingress Controller
+      run: |
+        helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+        helm repo update
+        helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
+          --namespace ingress-nginx \
+          --create-namespace \
+          --set controller.publishService.enabled=true
+
+    # Install ArgoCD
+    - name: Install ArgoCD
+      run: |
+        helm repo add argo https://argoproj.github.io/argo-helm
+        helm repo update
+        helm upgrade --install argocd argo/argo-cd \
+          --namespace argocd \
+          --create-namespace \
+          --values kube-gitops/argocd-values.yaml
+
+    # Wait for ArgoCD to be ready
+    - name: Wait for ArgoCD server
+      run: |
+        kubectl rollout status deployment/argocd-server -n argocd --timeout=180s
+
+    # Bootstrap ApplicationSet
+    - name: Bootstrap ApplicationSet controller
+      run: |
+        kubectl apply -f kube-gitops/applicationset.yaml -n argocd
