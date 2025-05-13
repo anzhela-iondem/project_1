@@ -8,10 +8,10 @@ resource "aws_ecr_repository" "app" {
 # Create EKS
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
-  version         = "~> 19.0"
+  version         = "~> 20.8.4"
 
   cluster_name    = var.cluster_name
-  cluster_version = "1.30"
+  cluster_version = "1.31"
   subnet_ids      = var.subnet_ids
   vpc_id          = var.vpc_id
 
@@ -23,6 +23,10 @@ module "eks" {
       max_capacity     = 3
       min_capacity     = 1
       instance_types   = ["t3.micro"]   #Values are hardcoded, can be moved to variables section
+      
+      tags = {
+        Name = "Node_Project1"
+      }
     }
   }
 
