@@ -3,7 +3,7 @@ const app = express();
 const PORT = 3000
 app.get('/', (req, res)=>{
     res.status(200);
-    res.send('<h1 style="font-size: 24px; font-weight: bold;">Welcome to the Root URL of this Server</h1>');
+    res.send('<h1 style="font-size: 34px; font-weight: bold;">Welcome to the Root URL of this Server</h1>');
 });
 
 app.listen(PORT, (error) =>{
