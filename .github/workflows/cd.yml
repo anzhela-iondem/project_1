@@ -44,6 +44,8 @@ jobs:
 
     # Install NGINX Ingress Controller
     - name: Install NGINX Ingress Controller
+      env:
+        KUBECONFIG: ${{ env.KUBECONFIG }}
       run: |
         helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
         helm repo update
@@ -51,8 +53,6 @@ jobs:
           --namespace ingress-nginx \
           --create-namespace \
           --set controller.publishService.enabled=true
-      env:
-        KUBECONFIG: ${{ env.KUBECONFIG }}
 
     # Install ArgoCD
     - name: Install ArgoCD
