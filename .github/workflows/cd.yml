@@ -34,6 +34,13 @@ jobs:
       run: |
         aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME
 
+    ###For inspecting###
+    - name: Get Kubeconfig from EKS
+      run: |
+        aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME
+        echo "==== KUBECONFIG ===="
+        cat ~/.kube/config
+      
 
     - name: Install Helm
       uses: azure/setup-helm@v3
