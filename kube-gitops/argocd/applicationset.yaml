@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: fake-projecr
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/anzhela-iondem/project_1 
+        revision: main
+        directories:
+          - path: kube-gitops/helm/fake-project-app/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/anzhela-iondem/project_1 
+        targetRevision: main
+        path: kube-gitops/helm/fake-project-app
+        helm:
+          valueFiles:
+            - values.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: fake-project-app
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true

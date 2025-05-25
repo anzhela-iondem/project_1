@@ -1,0 +1,18 @@
+replicaCount: 1
+
+image:
+  repository: <your-ecr-repo>  #TODO add ECR repository link
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: fake-project-app.com
+      paths:
+        - path: /
+          pathType: Prefix
