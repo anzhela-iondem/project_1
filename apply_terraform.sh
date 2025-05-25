@@ -3,8 +3,8 @@
 set -e
 
 cd ./terraform
-#terraform init
-terraform apply -var-file=dev.tfvars -auto-approve
+terraform init -upgrade
+terraform apply -var-file=dev.tfvars -auto-approve 
 #terraform destroy -var-file=dev.tfvars -auto-approve
 
 source .env
