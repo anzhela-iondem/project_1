@@ -47,6 +47,8 @@ jobs:
       env:
         KUBECONFIG: ${{ env.KUBECONFIG }}
       run: |
+        kubectl config view
+        kubectl get nodes
         helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
         helm repo update
         helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
