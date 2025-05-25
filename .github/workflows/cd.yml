@@ -34,12 +34,8 @@ jobs:
       run: |
         aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME
 
-    ###For inspecting###
-    - name: Get Kubeconfig from EKS
-      run: |
-        aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME
-        echo "==== KUBECONFIG ===="
-        cat ~/.kube/config
+    - name: Export KUBECONFIG path
+      run: echo "KUBECONFIG=$HOME/.kube/config" >> $GITHUB_ENV
       
 
     - name: Install Helm
@@ -55,6 +51,8 @@ jobs:
           --namespace ingress-nginx \
           --create-namespace \
           --set controller.publishService.enabled=true
+      env:
+        KUBECONFIG: ${{ env.KUBECONFIG }}
 
     # Install ArgoCD
     - name: Install ArgoCD
