@@ -17,8 +17,7 @@ jobs:
 
     env:
       CLUSTER_NAME: ${{ secrets.EKS_CLUSTER_NAME }}
-      AWS_REGION: ${{ secrets.AWS_REGION }}           #The "Region" can be a simple variable
-      KUBECONFIG: ${{ github.workspace }}/terraform/kubeconfig.yaml
+      AWS_REGION: ${{ secrets.AWS_REGION }} 
 
     steps:
 
@@ -34,14 +33,11 @@ jobs:
     - name: Get Kubeconfig from EKS
       run: |
         aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME
-    
-    - name: Write kubeconfig from secret
-      run: |
-        echo "${{ secrets.KUBECONFIG_CONTENT }}" > $KUBECONFIG
-        chmod 600 $KUBECONFIG  # for security
+
 
     - name: Install Helm
       uses: azure/setup-helm@v3
+    
 
     # Install NGINX Ingress Controller
     - name: Install NGINX Ingress Controller
