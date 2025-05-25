@@ -34,6 +34,11 @@ jobs:
     - name: Get Kubeconfig from EKS
       run: |
         aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME
+    
+    - name: Write kubeconfig from secret
+      run: |
+        echo "${{ secrets.KUBECONFIG_CONTENT }}" > $KUBECONFIG
+        chmod 600 $KUBECONFIG  # for security
 
     - name: Install Helm
       uses: azure/setup-helm@v3
