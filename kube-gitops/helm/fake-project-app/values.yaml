@@ -14,7 +14,7 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
   hosts:
-    - host: DA2072DB66D41C191F48265339711B62.gr7.us-east-1.eks.amazonaws.com
+    - host: ""
       paths:
         - path: /
           pathType: Prefix
