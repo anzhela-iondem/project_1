@@ -59,16 +59,34 @@ jobs:
     
 
     # Install NGINX Ingress Controller
-    - name: Install NGINX Ingress Controller
+    # - name: Install NGINX Ingress Controller
+    #   run: |
+    #     kubectl config view
+    #     kubectl get nodes
+    #     helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+    #     helm repo update
+    #     helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
+    #       --namespace ingress-nginx \
+    #       --create-namespace \
+    #       --set controller.publishService.enabled=true
+    - name: Install Helm
       run: |
-        kubectl config view
-        kubectl get nodes
+        curl -sL https://github.com/helm/helm/releases/latest/download/helm-linux-amd64 > helm
+        chmod +x helm
+        sudo mv helm /usr/local/bin/helm
+
+    - name: Add NGINX Ingress Controller repository
+      run: |
         helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
         helm repo update
-        helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
-          --namespace ingress-nginx \
-          --create-namespace \
-          --set controller.publishService.enabled=true
+
+    - name: Install NGINX Ingress Controller
+      run: |
+        helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace -f ./ingress-nginx/values.yaml
+      env:
+        HELM_CONFIG_PATH: ./helm
+
+
 
     # Install ArgoCD
     - name: Install ArgoCD
