@@ -3,6 +3,8 @@ kind: ApplicationSet
 metadata:
   name: fake-projecr
   namespace: argocd
+  argocd-image-updater.argoproj.io/image-list: nodejs=216282580084.dkr.ecr.us-east-1.amazonaws.com/nodejs_image_fake_project
+  argocd-image-updater.argoproj.io/nodejs.update-strategy: latest
 spec:
   generators:
     - git:
