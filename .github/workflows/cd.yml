@@ -32,6 +32,7 @@ jobs:
 
     - name: Update kubeconfig for EKS
       run: |
+        aws eks create-access-entry --cluster-name $CLUSTER_NAME  --principal-arn ${{ secrets.AWS_OIDC_ROLE_ARN }}  
         aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME
 
 
