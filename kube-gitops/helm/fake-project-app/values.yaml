@@ -11,8 +11,10 @@ service:
 ingress:
   enabled: true
   className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
   hosts:
-    - host: fake-project-app.com
+    - host: DA2072DB66D41C191F48265339711B62.gr7.us-east-1.eks.amazonaws.com
       paths:
         - path: /
           pathType: Prefix
