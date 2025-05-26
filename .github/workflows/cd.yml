@@ -99,7 +99,7 @@ jobs:
         helm upgrade --install argocd argo/argo-cd \
           --namespace argocd \
           --create-namespace \
-          --values kube-gitops/argocd-values.yaml
+          --values kube-gitops/values.yaml
 
     # Wait for ArgoCD to be ready
     - name: Wait for ArgoCD server
