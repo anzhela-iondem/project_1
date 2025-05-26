@@ -82,9 +82,9 @@ jobs:
 
     - name: Install NGINX Ingress Controller
       run: |
-        helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace -f ./ingress-nginx/values.yaml
-      env:
-        HELM_CONFIG_PATH: ./helm
+        helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace
+      # env:
+      #   HELM_CONFIG_PATH: ./helm
 
 
 
