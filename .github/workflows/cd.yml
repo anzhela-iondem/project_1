@@ -110,4 +110,4 @@ jobs:
     # Bootstrap ApplicationSet
     - name: Bootstrap ApplicationSet controller
       run: |
-        kubectl apply -f kube-gitops/applicationset.yaml -n argocd
+        kubectl apply -f kube-gitops/argocd/applicationset.yaml -n argocd
