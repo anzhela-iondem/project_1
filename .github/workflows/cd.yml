@@ -69,22 +69,25 @@ jobs:
     #       --namespace ingress-nginx \
     #       --create-namespace \
     #       --set controller.publishService.enabled=true
-    - name: Install Helm
+    - name: Uninstall existing ingress-nginx release if it exists
       run: |
-        curl -sL https://github.com/helm/helm/releases/latest/download/helm-linux-amd64 > helm
-        chmod +x helm
-        sudo mv helm /usr/local/bin/helm
-
+        helm uninstall ingress-nginx -n ingress-nginx || true
+        kubectl delete ns ingress-nginx --ignore-not-found=true
+        sleep 10            # Let the namespace clear fully
+    
     - name: Add NGINX Ingress Controller repository
       run: |
         helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
         helm repo update
-
+    
     - name: Install NGINX Ingress Controller
       run: |
-        helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace
-      # env:
-      #   HELM_CONFIG_PATH: ./helm
+        helm install ingress-nginx ingress-nginx/ingress-nginx \
+          --namespace ingress-nginx \
+          --create-namespace \
+          --wait \
+          --set controller.publishService.enabled=true
+
 
 
 
