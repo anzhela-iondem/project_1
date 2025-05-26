@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Chart.Name }}
-  namespace: {{ .Release.Namespace }}
+  namespace: fake-project-app
 spec:
   selector:
     app: {{ .Chart.Name }}
