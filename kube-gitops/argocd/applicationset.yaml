@@ -24,7 +24,7 @@ spec:
             - values.yaml
       destination:
         server: https://kubernetes.default.svc
-        #namespace: fake-project-app
+        namespace: fake-project-app
       syncPolicy:
         automated:
           selfHeal: true
