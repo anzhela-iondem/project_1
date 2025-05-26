@@ -87,7 +87,7 @@ jobs:
           --create-namespace \
           --wait \
           --set controller.publishService.enabled=true \
-          --values kube-gitops/nginx-ingress-values.yaml
+          #values kube-gitops/nginx-ingress-values.yaml
 
 
 
