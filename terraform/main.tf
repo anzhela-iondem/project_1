@@ -22,7 +22,7 @@ module "eks" {
       desired_capacity = 2
       max_capacity     = 3
       min_capacity     = 1
-      instance_types   = ["t3.small"]   #Values are hardcoded, can be moved to variables section
+      instance_types   = ["t3.medium"]   #Values are hardcoded, can be moved to variables section
       
       tags = {
         Name = "Node_Project1"
