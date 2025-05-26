@@ -47,7 +47,7 @@ jobs:
           --cluster-name $CLUSTER_NAME \
           --principal-arn $ROLE_ARN \
           --access-scope type=cluster \
-          --policy-arn arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy
+          --policy-arn arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy   #
 
     - name: Update kubeconfig for EKS
       run: |
