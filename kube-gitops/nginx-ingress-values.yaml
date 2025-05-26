@@ -1,0 +1,15 @@
+controller:
+  publishService:
+    enabled: true
+
+  service:
+    type: LoadBalancer  # or NodePort, depending on your environment
+    ports:
+      http: 80
+      https: 443
+
+  metrics:
+    enabled: true
+
+defaultBackend:
+  enabled: true

@@ -87,6 +87,7 @@ jobs:
           --create-namespace \
           --wait \
           --set controller.publishService.enabled=true
+          --values kube-gitops/nginx-ingress-values.yaml
 
 
 
@@ -99,7 +100,7 @@ jobs:
         helm upgrade --install argocd argo/argo-cd \
           --namespace argocd \
           --create-namespace \
-          --values kube-gitops/values.yaml
+          --values kube-gitops/argocd/argocd-values.yaml
 
     # Wait for ArgoCD to be ready
     - name: Wait for ArgoCD server

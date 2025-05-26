@@ -1,0 +1,23 @@
+server:
+  service:
+    type: LoadBalancer  # or ClusterIP + ingress
+
+  ingress:
+    enabled: true
+    hosts:
+      - argocd.example.com
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    tls:
+      - secretName: argocd-tls
+        hosts:
+          - argocd.example.com
+
+configs:
+  cm:
+    # Customize as needed
+    disableTelemetry: "true"
+
+admin:
+  # You should set a bcrypt-hashed password or configure SSO
+  password: $2a$10$somehashedpassword
