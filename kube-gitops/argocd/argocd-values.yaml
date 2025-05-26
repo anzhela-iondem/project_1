@@ -20,4 +20,4 @@ configs:
 
 admin:
   # You should set a bcrypt-hashed password or configure SSO
-  password: $2a$10$somehashedpassword
+  password: $2a$12$b4YNr2tXl7PA/2nuu4lO.uU/YHXf45ozTbeKhXDjWZPaLwy5Qf/vi
